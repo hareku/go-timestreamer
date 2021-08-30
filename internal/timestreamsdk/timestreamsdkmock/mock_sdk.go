@@ -8,7 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
+	aws "github.com/aws/aws-sdk-go/aws"
 	request "github.com/aws/aws-sdk-go/aws/request"
+	timestreamquery "github.com/aws/aws-sdk-go/service/timestreamquery"
 	timestreamwrite "github.com/aws/aws-sdk-go/service/timestreamwrite"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -54,4 +56,46 @@ func (mr *MockTimestreamWriteIfaceMockRecorder) WriteRecordsWithContext(ctx, inp
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, input}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WriteRecordsWithContext", reflect.TypeOf((*MockTimestreamWriteIface)(nil).WriteRecordsWithContext), varargs...)
+}
+
+// MockTimestreamQueryIface is a mock of TimestreamQueryIface interface.
+type MockTimestreamQueryIface struct {
+	ctrl     *gomock.Controller
+	recorder *MockTimestreamQueryIfaceMockRecorder
+}
+
+// MockTimestreamQueryIfaceMockRecorder is the mock recorder for MockTimestreamQueryIface.
+type MockTimestreamQueryIfaceMockRecorder struct {
+	mock *MockTimestreamQueryIface
+}
+
+// NewMockTimestreamQueryIface creates a new mock instance.
+func NewMockTimestreamQueryIface(ctrl *gomock.Controller) *MockTimestreamQueryIface {
+	mock := &MockTimestreamQueryIface{ctrl: ctrl}
+	mock.recorder = &MockTimestreamQueryIfaceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockTimestreamQueryIface) EXPECT() *MockTimestreamQueryIfaceMockRecorder {
+	return m.recorder
+}
+
+// QueryPagesWithContext mocks base method.
+func (m *MockTimestreamQueryIface) QueryPagesWithContext(arg0 aws.Context, arg1 *timestreamquery.QueryInput, arg2 func(*timestreamquery.QueryOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "QueryPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// QueryPagesWithContext indicates an expected call of QueryPagesWithContext.
+func (mr *MockTimestreamQueryIfaceMockRecorder) QueryPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "QueryPagesWithContext", reflect.TypeOf((*MockTimestreamQueryIface)(nil).QueryPagesWithContext), varargs...)
 }
